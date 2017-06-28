@@ -1,9 +1,13 @@
 import React from 'react'
+import Timer from '../components/Timer'
 
 const HelloWorld = () => (
   <div>
-    <h1>Hello React</h1>
-    <p>This is a simple start up page created using react.</p>
+    <dl>
+      <dt>倒计时</dt>
+      <dd><Timer seconds={10000} /></dd>
+    </dl>
+    
   </div>
 )
 
