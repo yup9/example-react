@@ -1,41 +1,30 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Router, browserHistory, Route, IndexRoute } from 'react-router'
 import ReactDOM from 'react-dom'
-import TabBar from './components/TabBar'
-import HelloWorld from './pages/HelloWorld'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducers from './reducers'
 
+import HelloWorld from './pages/HelloWorld'
+import Mine from './pages/Mine'
+import Container from './components/Container'
 import './styles/main.scss';
 
 
-const tabs = [{
-  icon: 'color',
-  to: '/',
-  label: '首页',
-}, {
-  icon: 'account',
-  to: '/account',
-  label: '我的',
-}, {
-  icon: 'favorite',
-  to: '/fav',
-  label: '收藏',
-}, {
-  icon: 'pic',
-  to: '/pic',
-  label: '图片',
-}]
+const store = createStore(reducers)
 
-const routes =  () => (
-  <div className="page">
-    <Router>
-      <Route exact path="/" component={HelloWorld}/>
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Container}>
+        <IndexRoute component={HelloWorld} />
+        <Route path="mine" component={Mine} />
+      </Route>
     </Router>
-    <TabBar tabs={tabs} />
-  </div>
-  
+  </Provider>
 )
 
 ReactDOM.render(
-  routes(),
+  <Root store={store} />,
   document.getElementById('app')
 )

@@ -26,9 +26,6 @@ const humanize = (seconds, fmt) => {
 }
 
 class Timer extends React.Component {
-  static propTypes = {
-    seconds: PropTypes.number,
-  }
 
   timer = null
 
@@ -37,8 +34,9 @@ class Timer extends React.Component {
   }
   
   componentDidMount() {
-    const { seconds } = this.props
+    const { seconds, onStart } = this.props
     if (seconds > 1) {
+      onStart()
       this.countDown()
     }
   }
@@ -58,6 +56,7 @@ class Timer extends React.Component {
   }
 
   clearTimer() {
+    this.props.onStop()
     clearTimeout(this.timer)
   }
 
@@ -73,6 +72,18 @@ class Timer extends React.Component {
   componentWillUnmount() {
     this.clearTimer()
   }
+}
+
+
+Timer.propTypes = {
+  seconds: PropTypes.number.isRequired,
+  onStart: PropTypes.func.isRequired,
+  onStop: PropTypes.func.isRequired
+}
+
+Timer.defaultProps = {
+  onStart: function() {},
+  onStop: function() {}
 }
 
 export default Timer

@@ -1,0 +1,13 @@
+.stepper {
+  margin-top: 25px;
+  margin-left: 100px;
+  &-text {
+    margin: 0 15px;
+  }
+  &-button {
+    padding: 3px 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #fff;
+  }
+}
